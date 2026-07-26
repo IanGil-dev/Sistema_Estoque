@@ -51,3 +51,5 @@ Sistema_Estoque/
 ---
 
 Desenvolvido por [Ian Gil](https://github.com/IanGil-dev)
+
+![Imagem do sistema](imagem/Sistema-estoque.png)
