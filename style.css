@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root {
+  --bg: #000103;
+  --bg-panel: #dfdbdb;
+  --ink: #bbbec0;
+  --ink-soft: #4568f5;
+  --steel: #5e53f3;
+  --steel-dark: #0a74d6;
+  --amber: #E8871E;
+  --amber-dark: #C56D0E;
+  --success: #2F7D5E;
+  --danger: #B23A2F;
+  --border: #000000;
+  --radius: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  background-image: url('imagem/imagem_pagina.jpeg');
+  background-size: 700px auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--ink);
+  padding: 40px 20px 60px;
+}
+h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  text-align: center;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+h1::after {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+
+section {
+  background: var(--bg-panel);
+  max-width: 850px;
+  margin: 0 auto 28px auto;
+  padding: 24px 26px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--steel);
+  box-shadow: 0 1px 2px rgba(28,43,57,0.04), 0 8px 20px -12px rgba(28,43,57,0.15);
+  position: relative;
+  animation: rise 0.5s ease both;
+}
+
+section:nth-of-type(2) { animation-delay: 0.05s; }
+section:nth-of-type(3) { animation-delay: 0.1s; }
+section:nth-of-type(4) { animation-delay: 0.15s; }
+section:nth-of-type(5) { animation-delay: 0.2s; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  section { animation: none; }
+}
+
+h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--steel-dark);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border);
+}
+
+/* Formulários */
+#form-produto, #form-tecnico {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+input[type="text"], input[type="number"] {
+  flex: 1;
+  min-width: 150px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  background: #FBFBFC;
+  color: var(--ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+  outline: none;
+  border-color: var(--steel);
+  box-shadow: 0 0 0 3px rgba(62,92,118,0.15);
+  background: #fff;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--amber);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+#area-serial {
+  width: 100%;
+  padding: 14px;
+  background: #FDF6EC;
+  border: 1px dashed var(--amber);
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+#lista-series {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+#lista-series li {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  background: var(--ink);
+  color: #fff;
+  padding: 4px 8px 4px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#lista-series li button {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1;
+  font-size: 0.7rem;
+}
+
+#lista-series li button:hover {
+  background: var(--danger);
+}
+
+/* Botões */
+button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--steel);
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: var(--steel-dark);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+#btn-add-serial {
+  background-color: var(--amber);
+}
+
+#btn-add-serial:hover {
+  background-color: var(--amber-dark);
+}
+
+button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--steel);
+  outline-offset: 2px;
+}
+
+/* Tabelas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding: 10px 12px;
+  background-color: #F5F7F8;
+  color: var(--ink-soft);
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
+}
+
+tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+tbody tr:hover {
+  background-color: #F7FAFB;
+}
+
+/* Números de série e quantidades como "etiqueta de ativo" */
+td:nth-child(3), td:nth-child(4) {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.estoque-baixo {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.btn-acao {
+  padding: 6px 12px;
+  margin-right: 6px;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.btn-entrada {
+  background-color: var(--success);
+}
+
+.btn-entrada:hover {
+  background-color: #245F49;
+}
+
+.btn-saida {
+  background-color: var(--amber);
+}
+
+.btn-saida:hover {
+  background-color: var(--amber-dark);
+}
+
+.btn-excluir {
+  background-color: var(--danger);
+}
+
+.btn-excluir:hover {
+  background-color: #8F2E24;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  section { padding: 18px; }
+  table, thead, tbody, th, td, tr { display: block; }
+  thead { display: none; }
+  tbody tr {
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+  td {
+    border: none;
+    padding: 6px 0;
+  }
+  td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+}
