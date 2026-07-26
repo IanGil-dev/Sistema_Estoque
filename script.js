@@ -87,9 +87,9 @@ function salvarHistoricoUso() {
     localStorage.setItem('historicoUso', JSON.stringify(historicoUso));
 }
 
-const formTecnico = document.getElementById('form-tecnico');
+const formFuncionario = document.getElementById('form-funcionario');
 
-formTecnico.addEventListener('submit', function (e) {
+formFuncionario.addEventListener('submit', function (e) {
   e.preventDefault();
 
   const nome = document.getElementById('nomeFuncionario').value.trim();
@@ -102,7 +102,7 @@ formTecnico.addEventListener('submit', function (e) {
   funcionarios.push(novoFuncionario);
   salvarFuncionarios();
 
-  formTecnico.reset();
+  formFuncionario.reset();
   console.log(funcionarios);
 });
 
@@ -122,7 +122,7 @@ function salvarMateriaisComFuncionario() {
 carregarFuncionarios();
 carregarMateriaisComFuncionario();
 carregarHistoricoUso();
-renderizarTabelaMateriaisTecnico();
+renderizarTabelaMateriaisFuncionario();
 renderizarTabelaHistoricoUso();
 
 // Renderiza (desenha) a tabela de produtos na tela
@@ -217,19 +217,19 @@ document.getElementById('corpo-tabela').addEventListener('click', function (e) {
     }
   }
 
-// Saída de material para técnico
+// Saída de material para funcionário
   if (e.target.classList.contains('btn-saida')) {
-    if (tecnicos.length === 0) {
-      alert('Cadastre um técnico antes de registrar uma saída.');
+    if (funcionarios.length === 0) {
+      alert('Cadastre um funcionário antes de registrar uma saída.');
       return;
     }
 
-    const nomesTecnicos = tecnicos.map(t => t.nome).join(', ');
-    const nomeTecnico = prompt(`Para qual técnico? (${nomesTecnicos})`);
-    const tecnico = tecnicos.find(t => t.nome.toLowerCase() === (nomeTecnico || '').toLowerCase());
+    const nomesFuncionarios = funcionarios.map(f => f.nome).join(', ');
+    const nomeFuncionario = prompt(`Para qual funcionário? (${nomesFuncionarios})`);
+    const funcionario = funcionarios.find(f => f.nome.toLowerCase() === (nomeFuncionario || '').toLowerCase());
 
-    if (!tecnico) {
-      alert('Técnico não encontrado. Confira o nome digitado.');
+    if (!funcionario) {
+      alert('Funcionário não encontrado. Confira o nome digitado.');
       return;
     }
 
@@ -245,19 +245,19 @@ document.getElementById('corpo-tabela').addEventListener('click', function (e) {
 
     produto.quantidade -= quantidade;
 
-    materiaisComTecnico.push({
+    materiaisComFuncionario.push({
       id: Date.now(),
       produtoId: produto.id,
       produtoNome: produto.nome,
-      tecnicoId: tecnico.id,
-      tecnicoNome: tecnico.nome,
+      funcionarioId: funcionario.id,
+      funcionarioNome: funcionario.nome,
       quantidade: quantidade,
       serial: serial,
       dataEntrega: new Date().toLocaleString('pt-BR')
     });
 
-    salvarMateriaisComTecnico();
-    renderizarTabelaMateriaisTecnico();
+    salvarMateriaisComFuncionario();
+    renderizarTabelaMateriaisFuncionario();
   }
 
 
@@ -271,16 +271,16 @@ document.getElementById('corpo-tabela').addEventListener('click', function (e) {
   renderizarTabela();
 });
 
- //Renderizar tabela de materiais que estão com técnicos
-function renderizarTabelaMateriaisTecnico() {
-  const corpo = document.getElementById('corpo-tabela-materiais-tecnico');
+ //Renderizar tabela de materiais que estão com funcionários
+function renderizarTabelaMateriaisFuncionario() {
+  const corpo = document.getElementById('corpo-tabela-materiais-funcionario');
   corpo.innerHTML = '';
 
-  materiaisComTecnico.forEach(function (item) {
+  materiaisComFuncionario.forEach(function (item) {
     const linha = document.createElement('tr');
     linha.innerHTML = `
       <td data-label="Produto">${item.produtoNome}</td>
-      <td data-label="Técnico">${item.tecnicoNome}</td>
+      <td data-label="Funcionário">${item.funcionarioNome}</td>
       <td data-label="Quantidade">${item.quantidade}</td>
       <td data-label="Número de Série">${item.serial || '-'}</td>
       <td data-label="Data de Entrega">${item.dataEntrega}</td>
@@ -292,7 +292,7 @@ function renderizarTabelaMateriaisTecnico() {
     corpo.appendChild(linha);
   });
 }
-// Renderizar tabela do histórico de uso dos materiais pelos técnicos
+// Renderizar tabela do histórico de uso dos materiais pelos funcionários
 function renderizarTabelaHistoricoUso() {
   const corpo = document.getElementById('corpo-tabela-historico-uso');
   corpo.innerHTML = '';
@@ -301,7 +301,7 @@ function renderizarTabelaHistoricoUso() {
     const linha = document.createElement('tr');
 
     linha.innerHTML = `
-      <td data-label="Técnico">${item.tecnicoNome}</td>
+      <td data-label="Funcionário">${item.funcionarioNome}</td>
       <td data-label="Produto">${item.produtoNome}</td>
       <td data-label="Quantidade">${item.quantidade}</td>
       <td data-label="Serial">${item.serial || '-'}</td>
@@ -315,11 +315,11 @@ function renderizarTabelaHistoricoUso() {
   });
 }
 
-document.getElementById('corpo-tabela-materiais-tecnico').addEventListener('click', function (e) {
+document.getElementById('corpo-tabela-materiais-funcionario').addEventListener('click', function (e) {
   const id = Number(e.target.dataset.id);
   if (!id) return;
 
-  const item = materiaisComTecnico.find(m => m.id === id);
+  const item = materiaisComFuncionario.find(m => m.id === id);
   if (!item) return;
 
   // Botão "Registrar Uso" (código que já existia)
@@ -329,7 +329,7 @@ document.getElementById('corpo-tabela-materiais-tecnico').addEventListener('clic
     if (!(quantidadeUsada > 0)) return;
 
     if (quantidadeUsada > item.quantidade) {
-      alert('Quantidade usada maior que a disponível com o técnico!');
+      alert('Quantidade usada maior que a disponível com o funcionário!');
       return;
     }
     const cliente = prompt('Nome do cliente:');
@@ -340,7 +340,7 @@ document.getElementById('corpo-tabela-materiais-tecnico').addEventListener('clic
 
     historicoUso.push({
       id: Date.now(),
-      tecnicoNome: item.tecnicoNome,
+      funcionarioNome: item.funcionarioNome,
       produtoNome: item.produtoNome,
       quantidade: quantidadeUsada,
       serial: item.serial,
@@ -351,22 +351,22 @@ document.getElementById('corpo-tabela-materiais-tecnico').addEventListener('clic
     item.quantidade -= quantidadeUsada;
 
     if (item.quantidade <= 0) {
-      materiaisComTecnico = materiaisComTecnico.filter(m => m.id !== id);
+      materiaisComFuncionario = materiaisComFuncionario.filter(m => m.id !== id);
     }
 
-    salvarMateriaisComTecnico();
+    salvarMateriaisComFuncionario();
     salvarHistoricoUso();
-    renderizarTabelaMateriaisTecnico();
+    renderizarTabelaMateriaisFuncionario();
     renderizarTabelaHistoricoUso();
   }
   // Botão "Excluir" (novo)
   if (e.target.classList.contains('btn-excluir')) {
-    const confirmar = confirm('Excluir este registro de material com técnico?');
+    const confirmar = confirm('Excluir este registro de material com funcionário?');
     if (!confirmar) return;
 
-    materiaisComTecnico = materiaisComTecnico.filter(m => m.id !== id);
-    salvarMateriaisComTecnico();
-    renderizarTabelaMateriaisTecnico();
+    materiaisComFuncionario = materiaisComFuncionario.filter(m => m.id !== id);
+    salvarMateriaisComFuncionario();
+    renderizarTabelaMateriaisFuncionario();
   }
 });
 // Escuta cliques na tabela de histórico de uso
