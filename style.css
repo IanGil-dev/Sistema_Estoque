@@ -2,7 +2,7 @@
 
 :root {
   --bg: #000103;
-  --bg-panel: #dfdbdb;
+  --bg-panel: #f5e1e1;
   --ink: #000000;
   --ink-soft: #4568f5;
   --steel: #5e53f3;
@@ -12,6 +12,7 @@
   --success: #2F7D5E;
   --danger: #B23A2F;
   --border: #000000;
+  --title-color: #bec1cc;
   --radius: 10px;
 }
 
@@ -39,7 +40,7 @@ h1 {
   letter-spacing: 0.04em;
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   text-align: center;
-  color: var(--ink);
+  color: var(--title-color);
   margin-bottom: 8px;
 }
 
